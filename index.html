@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traditio - Preserve Cultural Heritage</title>
+    <style>
+        /* Rose Quartz Theme */
+        :root {
+            --background: #F0F2F5;
+            --primary: #C2185B;
+            --accent: #00BCD4;
+            --highlight: #D6D6D6;
+            --text-base: #2C2C2C;
+            --text-muted: #777777;
+            --card-bg: #FFFFFF;
+            --border: #DDDDDD;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-base);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav ul li a:hover {
+            opacity: 0.8;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .search-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .filter {
+            min-width: 200px;
+        }
+
+        .filter select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: white;
+            color: var(--text-base);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #9e144d;
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background-color: #00a5bb;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tradition-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .tradition-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-image {
+            height: 180px;
+            background-color: var(--highlight);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .card-description {
+            margin-bottom: 1.5rem;
+            color: var(--text-base);
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .upvote-btn {
+            display: flex;
+            align-items: center;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .upvote-btn i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .upvote-btn.upvoted i {
+            color: var(--primary);
+        }
+
+        .bookmark-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .bookmark-btn.bookmarked {
+            color: var(--primary);
+        }
+
+        .upload-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .offline-notice {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 300;
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 0.75rem;
+            }
+
+            .search-filters {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>Traditio</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Collections</a></li>
+                    <li><a href="#">Bookmarks</a></li>
+                    <li><a href="#" id="upload-btn">Upload</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="search-filters">
+            <div class="search-box">
+                <input type="text" placeholder="Search traditions, recipes, legends...">
+            </div>
+            <div class="filter">
+                <select id="country-filter">
+                    <option value="">All Countries</option>
+                    <option value="Japan">Japan</option>
+                    <option value="India">India</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Nigeria">Nigeria</option>
+                </select>
+            </div>
+            <div class="filter">
+                <select id="category-filter">
+                    <option value="">All Categories</option>
+                    <option value="Ritual">Ritual</option>
+                    <option value="Recipe">Recipe</option>
+                    <option value="Folklore">Folklore</option>
+                    <option value="Festival">Festival</option>
+                    <option value="Craft">Craft</option>
+                </select>
+            </div>
+            <button class="btn btn-accent">Search</button>
+        </div>
+
+        <div class="content-grid" id="traditions-grid">
+            <!-- Tradition cards will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <div class="upload-modal" id="upload-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Share a Tradition</h3>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <form id="tradition-form">
+                <div class="form-group">
+                    <label for="tradition-title">Title</label>
+                    <input type="text" id="tradition-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="tradition-category">Category</label>
+                    <select id="tradition-category" required>
+                        <option value="">Select a category</option>
+                        <option value="Ritual">Ritual</option>
+                        <option value="Recipe">Recipe</option>
+                        <option value="Folklore">Folklore</option>
+                        <option value="Festival">Festival</option>
+                        <option value="Craft">Craft</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tradition-country">Country/Region</label>
+                    <input type="text" id="tradition-country" required>
+                </div>
+                <div class="form-group">
+                    <label for="tradition-image">Image URL</label>
+                    <input type="text" id="tradition-image">
+                </div>
+                <div class="form-group">
+                    <label for="tradition-description">Description</label>
+                    <textarea id="tradition-description" required></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn" id="cancel-upload">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="offline-notice" id="offline-notice">
+        You're currently offline. Viewing cached content.
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>Preserving cultural heritage for future generations</p>
+            <p>&copy; 2023 Traditio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample data for traditions
+        const traditions = [
+            {
+                id: 1,
+                title: "Japanese Tea Ceremony",
+                category: "Ritual",
+                country: "Japan",
+                image: "https://images.unsplash.com/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "The Japanese tea ceremony, also called the Way of Tea, is a Japanese cultural activity involving the ceremonial preparation and presentation of matcha, powdered green tea.",
+                upvotes: 124,
+                isUpvoted: false,
+                isBookmarked: false
+            },
+            {
+                id: 2,
+                title: "Grandma's Apple Pie",
+                category: "Recipe",
+                country: "USA",
+                image: "https://images.unsplash.com/photo-1562007908-17c67e878c88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "A classic American apple pie recipe passed down through generations in my family. The secret is in the blend of spices and the homemade crust.",
+                upvotes: 89,
+                isUpvoted: false,
+                isBookmarked: false
+            },
+            {
+                id: 3,
+                title: "Day of the Dead",
+                category: "Festival",
+                country: "Mexico",
+                image: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Día de los Muertos is a Mexican holiday where families welcome back the souls of their deceased relatives for a brief reunion that includes food, drink and celebration.",
+                upvotes: 156,
+                isUpvoted: false,
+                isBookmarked: false
+            },
+            {
+                id: 4,
+                title: "The Legend of Anansi",
+                category: "Folklore",
+                country: "Ghana",
+                image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Anansi the spider is a trickster figure in West African and Caribbean folklore who often takes the form of a spider and is considered to be the god of all knowledge of stories.",
+                upvotes: 72,
+                isUpvoted: false,
+                isBookmarked: false
+            },
+            {
+                id: 5,
+                title: "Norwegian Rosemaling",
+                category: "Craft",
+                country: "Norway",
+                image: "https://images.unsplash.com/photo-1584735422182-45196a8d4e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Rosemaling is a traditional Norwegian decorative painting style that developed in the 18th century, characterized by stylized flowers, scrollwork, and geometric elements.",
+                upvotes: 43,
+                isUpvoted: false,
+                isBookmarked: false
+            },
+            {
+                id: 6,
+                title: "Chinese Moon Festival",
+                category: "Festival",
+                country: "China",
+                image: "https://images.unsplash.com/photo-1567069395953-5075370c8899?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "The Mid-Autumn Festival is a harvest festival celebrated by Chinese people. Families gather to admire the bright moon and eat mooncakes together.",
+                upvotes: 98,
+                isUpvoted: false,
+                isBookmarked: false
+            }
+        ];
+
+        // DOM elements
+        const traditionsGrid = document.getElementById('traditions-grid');
+        const uploadBtn = document.getElementById('upload-btn');
+        const uploadModal = document.getElementById('upload-modal');
+        const closeModal = document.getElementById('close-modal');
+        const cancelUpload = document.getElementById('cancel-upload');
+        const traditionForm = document.getElementById('tradition-form');
+        const offlineNotice = document.getElementById('offline-notice');
+
+        // Display traditions
+        function displayTraditions(traditionsToDisplay) {
+            traditionsGrid.innerHTML = '';
+            
+            traditionsToDisplay.forEach(tradition => {
+                const card = document.createElement('div');
+                card.className = 'tradition-card';
+                card.innerHTML = `
+                    <div class="card-image" style="background-image: url('${tradition.image || 'https://via.placeholder.com/300x180?text=No+Image'}')"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">${tradition.title}</h3>
+                        <div class="card-meta">
+                            <span>${tradition.category}</span>
+                            <span>${tradition.country}</span>
+                        </div>
+                        <p class="card-description">${tradition.description}</p>
+                        <div class="card-actions">
+                            <button class="upvote-btn ${tradition.isUpvoted ? 'upvoted' : ''}" data-id="${tradition.id}">
+                                <i class="fas fa-heart"></i>
+                                <span>${tradition.upvotes}</span>
+                            </button>
+                            <button class="bookmark-btn ${tradition.isBookmarked ? 'bookmarked' : ''}" data-id="${tradition.id}">
+                                <i class="fas fa-bookmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                traditionsGrid.appendChild(card);
+            });
+
+            // Add event listeners to upvote and bookmark buttons
+            document.querySelectorAll('.upvote-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const tradition = traditions.find(t => t.id === id);
+                    if (tradition) {
+                        if (tradition.isUpvoted) {
+                            tradition.upvotes--;
+                            tradition.isUpvoted = false;
+                            this.classList.remove('upvoted');
+                        } else {
+                            tradition.upvotes++;
+                            tradition.isUpvoted = true;
+                            this.classList.add('upvoted');
+                        }
+                        this.querySelector('span').textContent = tradition.upvotes;
+                    }
+                });
+            });
+
+            document.querySelectorAll('.bookmark-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const tradition = traditions.find(t => t.id === id);
+                    if (tradition) {
+                        tradition.isBookmarked = !tradition.isBookmarked;
+                        this.classList.toggle('bookmarked');
+                        
+                        // Update bookmarks in localStorage
+                        updateBookmarksInStorage();
+                    }
+                });
+            });
+        }
+
+        // Filter traditions
+        function filterTraditions() {
+            const countryFilter = document.getElementById('country-filter').value.toLowerCase();
+            const categoryFilter = document.getElementById('category-filter').value.toLowerCase();
+            
+            const filtered = traditions.filter(tradition => {
+                const matchesCountry = !countryFilter || tradition.country.toLowerCase().includes(countryFilter);
+                const matchesCategory = !categoryFilter || tradition.category.toLowerCase().includes(categoryFilter);
+                return matchesCountry && matchesCategory;
+            });
+            
+            displayTraditions(filtered);
+        }
+
+        // Modal functions
+        uploadBtn.addEventListener('click', () => {
+            uploadModal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', () => {
+            uploadModal.style.display = 'none';
+        });
+
+        cancelUpload.addEventListener('click', () => {
+            uploadModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === uploadModal) {
+                uploadModal.style.display = 'none';
+            }
+        });
+
+        // Form submission
+        traditionForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const newTradition = {
+                id: traditions.length + 1,
+                title: document.getElementById('tradition-title').value,
+                category: document.getElementById('tradition-category').value,
+                country: document.getElementById('tradition-country').value,
+                image: document.getElementById('tradition-image').value,
+                description: document.getElementById('tradition-description').value,
+                upvotes: 0,
+                isUpvoted: false,
+                isBookmarked: false
+            };
+            
+            traditions.unshift(newTradition);
+            displayTraditions(traditions);
+            uploadModal.style.display = 'none';
+            traditionForm.reset();
+            
+            // Save to localStorage for offline access
+            saveToLocalStorage();
+        });
+
+        // Offline functionality
+        function checkOnlineStatus() {
+            if (!navigator.onLine) {
+                offlineNotice.style.display = 'block';
+                loadFromLocalStorage();
+            } else {
+                offlineNotice.style.display = 'none';
+            }
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('traditions', JSON.stringify(traditions));
+        }
+
+        function loadFromLocalStorage() {
+            const savedTraditions = localStorage.getItem('traditions');
+            if (savedTraditions) {
+                const parsed = JSON.parse(savedTraditions);
+                displayTraditions(parsed);
+            }
+        }
+
+        function updateBookmarksInStorage() {
+            const bookmarkedTraditions = traditions.filter(t => t.isBookmarked);
+            localStorage.setItem('bookmarkedTraditions', JSON.stringify(bookmarkedTraditions));
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            displayTraditions(traditions);
+            checkOnlineStatus();
+            
+            // Add event listeners to filters
+            document.getElementById('country-filter').addEventListener('change', filterTraditions);
+            document.getElementById('category-filter').addEventListener('change', filterTraditions);
+            
+            // Listen for online/offline events
+            window.addEventListener('online', checkOnlineStatus);
+            window.addEventListener('offline', checkOnlineStatus);
+        });
+    </script>
+</body>
+</html>
