@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Traditio - Preserve Cultural Heritage</title>
+    <title>Your Bookmarks | Traditio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -16,9 +16,9 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="collections.html">Collections</a></li>
-                    <li><a href="bookmarks.html">Bookmarks</a></li>
+                    <li><a href="bookmarks.html" class="active">Bookmarks</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="#" id="upload-btn">Upload</a></li>
                 </ul>
@@ -27,17 +27,17 @@
     </header>
 
     <div class="main-container">
-        <div class="collection-hero">
-            <h1>Preserve Cultural Heritage</h1>
-            <p>Discover and share forgotten traditions, rituals, recipes, and folklore from around the world</p>
+        <div class="page-header">
+            <h1><i class="fas fa-bookmark"></i> Your Saved Traditions</h1>
+            <p>All the cultural treasures you've saved for later</p>
         </div>
 
         <div class="search-filters">
             <div class="search-box">
-                <input type="text" id="search-input" placeholder="Search traditions, recipes, legends...">
+                <input type="text" id="bookmark-search" placeholder="Search your bookmarks...">
             </div>
             <div class="filter">
-                <select id="country-filter">
+                <select id="bookmark-country-filter">
                     <option value="">All Countries</option>
                     <option value="Japan">Japan</option>
                     <option value="India">India</option>
@@ -51,7 +51,7 @@
                 </select>
             </div>
             <div class="filter">
-                <select id="category-filter">
+                <select id="bookmark-category-filter">
                     <option value="">All Categories</option>
                     <option value="Ritual">Ritual</option>
                     <option value="Recipe">Recipe</option>
@@ -60,11 +60,11 @@
                     <option value="Craft">Craft</option>
                 </select>
             </div>
-            <button class="btn btn-accent" id="search-btn">Search</button>
+            <button class="btn btn-accent" id="bookmark-search-btn">Search</button>
         </div>
 
-        <div class="content-grid" id="traditions-grid">
-            <!-- Tradition cards will be dynamically inserted here -->
+        <div class="content-grid" id="bookmarks-grid">
+            <!-- Bookmarked traditions will be dynamically inserted here -->
         </div>
     </div>
 
